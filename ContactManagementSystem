@@ -1,0 +1,117 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Contact {
+    private String name;
+    private String email;
+    private String phone;
+    private String company;
+    private String jobTitle;
+
+    public Contact(String name, String email, String phone, String company, String jobTitle) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.company = company;
+        this.jobTitle = jobTitle;
+    }
+
+    @Override
+    public String toString() {
+        return name + " | " + email + " | " + phone + " | " + company + " | " + jobTitle;
+    }
+    public void setName(String name) { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public void setCompany(String company) { this.company = company; }
+    public void setJobTitle(String jobTitle) { this.jobTitle = jobTitle; }
+}
+
+class ContactManager {
+    private ArrayList<Contact> contacts;
+
+    public ContactManager() {
+        contacts = new ArrayList<>();
+    }
+
+    public void addContact(String name, String email, String phone, String company, String jobTitle) {
+        Contact contact = new Contact(name, email, phone, company, jobTitle);
+        contacts.add(contact);
+        System.out.println("Added contact: " + contact);
+    }
+
+    public void viewContacts() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts available.");
+            return;
+        }
+}
+}
+public class ContactManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ContactManager manager = new ContactManager();
+
+        while (true) {
+            System.out.println("\nContact Management System");
+            System.out.println("1. Add Contact");
+            System.out.println("2. View Contacts");
+            System.out.println("3. Edit Contact");
+            System.out.println("4. Delete Contact");
+            System.out.println("5. Exit");
+
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter email: ");
+                    String email = scanner.nextLine();
+                    System.out.print("Enter phone number: ");
+                    String phone = scanner.nextLine();
+                    System.out.print("Enter company: ");
+                    String company = scanner.nextLine();
+                    System.out.print("Enter job title: ");
+                    String jobTitle = scanner.nextLine();
+                    manager.addContact(name, email, phone, company, jobTitle);
+                    break;
+
+                case "2":
+                    manager.viewContacts();
+                    break;
+
+                case "3":
+                    System.out.print("Enter contact index to edit: ");
+                    int indexToEdit = Integer.parseInt(scanner.nextLine()) - 1;
+                    System.out.print("Enter new name (leave blank to keep current): ");
+                    String newName = scanner.nextLine();
+                    System.out.print("Enter new email (leave blank to keep current): ");
+                    String newEmail = scanner.nextLine();
+                    System.out.print("Enter new phone (leave blank to keep current): ");
+                    String newPhone = scanner.nextLine();
+                    System.out.print("Enter new company (leave blank to keep current): ");
+                    String newCompany = scanner.nextLine();
+                    System.out.print("Enter new job title (leave blank to keep current): ");
+                    String newJobTitle = scanner.nextLine();
+                    manager.editContact(indexToEdit, newName, newEmail,  newPhone,  newCompany, newJobTitle);
+                    break;
+
+                case "4":
+                    System.out.print("Enter contact index to delete: ");
+                    int indexToDelete = Integer.parseInt(scanner.nextLine()) - 1;
+                    manager.deleteContact(indexToDelete);
+                    break;
+
+                case "5":
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        }
+    }
+}
